@@ -7,6 +7,7 @@ python console_app.py xxx.jpg
 ```
 
 例1：单个人头
+
 原图:![](1.jpg)
 ```bash
 #输出
@@ -18,6 +19,7 @@ Result:
  生成结果：![](665b2e1a-4b8d-44dc-aa51-ba64635fd46a.png)
 
 例2：多个人头
+
 原图：![](2.jpg)
 ```bash
 Find  5 face(s)
