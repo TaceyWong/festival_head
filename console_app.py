@@ -6,7 +6,8 @@ from core.base import FestivalHead
 if __name__ == "__main__":
     ori_pic_path = sys.argv[1]
     o = FestivalHead()
-    result_pic = o.gen(ori_pic_path)
+    result_pic ,_= o.gen(ori_pic_path)
+
     print "Result:"
     print "relpath:",result_pic
     print "abspath:",os.path.abspath(result_pic)

@@ -86,6 +86,7 @@ class FestivalHead(PicBase):
         pic = pic.convert("L")
         img = np.array(pic)
         face_locations = face_recognition.face_locations(img)
+        print face_locations
         return face_locations
 
     def gen_face(self,ori,faces):
@@ -100,7 +101,7 @@ class FestivalHead(PicBase):
             ori = self._gen_mask(ori,self.mask_list[0],(r_w,r_h),start)
         pic_path = self._gen_name(store_path="./")
         ori.save(pic_path)
-        return pic_path
+        return pic_path,ori
 
 
 
@@ -119,7 +120,7 @@ class FestivalHead(PicBase):
         ori = self._gen_mask(ori,self.mask_list[0],(r_w,r_h),start)
         pic_path = self._gen_name(store_path="./")
         ori.save(pic_path)
-        return pic_path
+        return pic_path,ori
 
 
     def gen(self,ori,mask_index=0):
@@ -128,7 +129,7 @@ class FestivalHead(PicBase):
         print ori.size
         faces = self.rec_face(ori)
         if faces:
-            pic_path = self.gen_face(ori,faces)
+            pic_path,ori = self.gen_face(ori,faces)
         else:
-            pic_path = self.gen_no_face(ori)
-        return pic_path
+            pic_path,ori = self.gen_no_face(ori)
+        return pic_path,ori
