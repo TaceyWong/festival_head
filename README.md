@@ -7,7 +7,7 @@ python console_app.py xxx.jpg
 ```
 
 例1：单个人头
-原图:![]("./1.jpg")
+原图:![](1.jpg)
 ```bash
 #输出
 Find  1 face(s)
@@ -15,17 +15,17 @@ Result:
  -relpath: ./665b2e1a-4b8d-44dc-aa51-ba64635fd46a.png
  -abspath: /home/tacey/PycharmProjects/festival_head/665b2e1a-4b8d-44dc-aa51-ba64635fd46a.png
  ```
- 生成结果：![]("665b2e1a-4b8d-44dc-aa51-ba64635fd46a.png")
+ 生成结果：![](665b2e1a-4b8d-44dc-aa51-ba64635fd46a.png)
 
 例2：多个人头
-原图：![]("2.jpg")
+原图：![](2.jpg)
 ```bash
 Find  5 face(s)
 Result:
  -relpath: ./c0ae5035-95c1-4f0b-b7af-7c057fa60046.png
  -abspath: /home/tacey/PycharmProjects/festival_head/c0ae5035-95c1-4f0b-b7af-7c057fa60046.png
  ```
- 生成结果：![]("c0ae5035-95c1-4f0b-b7af-7c057fa60046.png")
+ 生成结果：![](c0ae5035-95c1-4f0b-b7af-7c057fa60046.png)
 
 
 
