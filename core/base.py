@@ -51,20 +51,21 @@ class PicBase(object):
         self._mask_list = tuple(m_list)
         return True
 
-    def _gen_mask(self,ori,mask,res,start,store_path):
+    def _gen_mask(self,ori,mask,res,start):
         mask = mask.resize(res, Image.ANTIALIAS)
         ori.paste(mask, start, mask=mask)
+        return ori
+
+    def _gen_name(self,store_path):
         pic_name = str(uuid.uuid4())+".png"
         pic_path = os.path.join(store_path,pic_name)
-        ori.save(pic_path)
         return pic_path
 
     def _adap_img(self):
         pass
 
     def _load_img(self,ori):
-        Image.open(ori).convert('RGBA')
-
+        img = Image.open(ori).convert('RGBA')
 
 
 class Festival(object):
@@ -88,17 +89,20 @@ class FestivalHead(PicBase):
         return face_locations
 
     def gen_face(self,ori,faces):
-        if len(faces) == 1:
-            top,right,bottom,left = faces[0]
+        result = []
+        for face in faces:
+            top,right,bottom,left = face
             width = right-left
             height = bottom-top
             r_w = int(width*1.2)
             r_h = int(min(top*1.2,r_w*1.0/self.mask_list[0].size[0]*self.mask_list[0].size[1]))
             start = (int(left-width*0.1),max(0,top-r_h))
-            pic_path = self._gen_mask(ori,self.mask_list[0],(r_w,r_h),start,"./")
-            return pic_path
-        if len(faces) == 2:
-            pass
+            ori = self._gen_mask(ori,self.mask_list[0],(r_w,r_h),start)
+        pic_path = self._gen_name(store_path="./")
+        ori.save(pic_path)
+        return pic_path
+
+
 
     def show_face(self,ori,faces):
         d = ImageDraw.Draw(ori)
@@ -109,7 +113,13 @@ class FestivalHead(PicBase):
 
 
     def gen_no_face(self,ori):
-        pass
+        r_w = int(self.pic_width*0.8)
+        r_h = int(min(self.pic_height*0.4*1.2,r_w*1.0/self.mask_list[0].size[0]*self.mask_list[0].size[1]))
+        start = (int(0.1*self.pic_width),max(0,self.pic_height*0.2-r_h))
+        ori = self._gen_mask(ori,self.mask_list[0],(r_w,r_h),start)
+        pic_path = self._gen_name(store_path="./")
+        ori.save(pic_path)
+        return pic_path
 
 
     def gen(self,ori,mask_index=0):
@@ -118,8 +128,7 @@ class FestivalHead(PicBase):
         print ori.size
         faces = self.rec_face(ori)
         if faces:
-            print faces
             pic_path = self.gen_face(ori,faces)
         else:
-            self.gen_no_face(ori)
+            pic_path = self.gen_no_face(ori)
         return pic_path
